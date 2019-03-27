@@ -10,6 +10,14 @@ class InputGroup extends Text
 
     protected $afterAddon = [];
 
+    protected $control;
+
+    public function __construct($name, $control)
+    {
+        parent::__construct($name);
+        $this->control = $control;
+    }
+
     public function beforeAddon($addon)
     {
         $this->beforeAddon[] = $addon;
@@ -48,10 +56,20 @@ class InputGroup extends Text
     {
         $html = '<div class="input-group">';
         $html .= $this->renderAddons($this->beforeAddon, 'prepend');
-        $html .= parent::render();
+        if ($this->control)
+            $html .= $this->control->render();
+        else
+            $html .= parent::render();
         $html .= $this->renderAddons($this->afterAddon, 'append');
         $html .= '</div>';
 
         return $html;
+    }
+
+    public function __call($method, $parameters)
+    {
+        if ($this->control)
+            return call_user_func_array([$this->control, $method], $parameters);
+        return $this;
     }
 }

@@ -185,9 +185,13 @@ class BasicFormBuilder
         return $this->wrap($formGroup);
     }
 
-    public function inputGroup($label, $name, $value = null)
+    public function inputGroup($label, $name, $value = null, $type = null)
     {
-        $control = new InputGroup($name);
+        if ($type == 'number')
+            $control = $this->builder->number($name)->value($value);
+        else
+            $control = null;
+        $control = new InputGroup($name, $control);
         if (!is_null($value) || !is_null($value = $this->getValueFor($name))) {
             $control->value($value);
         }
