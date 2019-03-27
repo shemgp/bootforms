@@ -16,6 +16,7 @@ class InputGroup extends Text
     {
         parent::__construct($name);
         $this->control = $control;
+        $this->control->addClass('form-control');
     }
 
     public function beforeAddon($addon)

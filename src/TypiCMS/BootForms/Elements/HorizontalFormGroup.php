@@ -33,6 +33,11 @@ class HorizontalFormGroup extends FormGroup
         return $html;
     }
 
+    public function setControlSizes($controlSizes)
+    {
+        $this->controlSizes = $controlSizes;
+    }
+
     protected function getControlClass()
     {
         $class = '';

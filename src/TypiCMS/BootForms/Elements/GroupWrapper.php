@@ -106,6 +106,13 @@ class GroupWrapper
         return $this;
     }
 
+    public function setFormGroupControlSizes($sizes)
+    {
+        $this->formGroup->setControlSizes($sizes);
+
+        return $this;
+    }
+
     public function __call($method, $parameters)
     {
         call_user_func_array([$this->target, $method], $parameters);
