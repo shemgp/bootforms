@@ -188,7 +188,13 @@ class BasicFormBuilder
     public function inputGroup($label, $name, $value = null, $type = null)
     {
         if ($type == 'number')
+        {
             $control = $this->builder->number($name)->value($value);
+            if ($this->builder->hasError($name))
+            {
+                $control->addClass('is-invalid');
+            }
+        }
         else
             $control = null;
         $control = new InputGroup($name, $control);
