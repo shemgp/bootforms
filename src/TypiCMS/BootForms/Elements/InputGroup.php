@@ -12,11 +12,14 @@ class InputGroup extends Text
 
     protected $control;
 
-    public function __construct($name, $control)
+    public function __construct($name, $control = null)
     {
         parent::__construct($name);
-        $this->control = $control;
-        $this->control->addClass('form-control');
+        if ($control)
+        {
+            $this->control = $control;
+            $this->control->addClass('form-control');
+        }
     }
 
     public function beforeAddon($addon)
@@ -58,7 +61,10 @@ class InputGroup extends Text
         $html = '<div class="input-group">';
         $html .= $this->renderAddons($this->beforeAddon, 'prepend');
         if ($this->control)
+        {
+            $this->control->setAttribute('required',$this->getAttribute('required'));
             $html .= $this->control->render();
+        }
         else
             $html .= parent::render();
         $html .= $this->renderAddons($this->afterAddon, 'append');
@@ -70,7 +76,9 @@ class InputGroup extends Text
     public function __call($method, $parameters)
     {
         if ($this->control)
+        {
             return call_user_func_array([$this->control, $method], $parameters);
+        }
         return $this;
     }
 }
