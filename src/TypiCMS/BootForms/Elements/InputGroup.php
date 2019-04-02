@@ -72,13 +72,4 @@ class InputGroup extends Text
 
         return $html;
     }
-
-    public function __call($method, $parameters)
-    {
-        if ($this->control)
-        {
-            return call_user_func_array([$this->control, $method], $parameters);
-        }
-        return $this;
-    }
 }
